@@ -54,4 +54,21 @@ knitr::opts_chunk$set(echo = TRUE)
   emit(key, result)
 ```
 
+### Map-Reduce:Environment
+**Map-Reduce	environment	takes	care	of:**
+- Partitioning	the	input	data	
+- Scheduling	the	program’s	execution	across	a	set	of	machines	
+- Performing	the	group	by	key	step	
+- Handling	machine	failures
+- Managing	required	inter-machine	communication
+
+#### Mapreduce: A diagram
+
+![Mapreduce: A diagram.](C:\Users\gajar\Desktop\ctr\mapreducedia.png)
+
+#### Mapreduce: In Parallel
+
+![Mapreduce: In Parallel.](C:\Users\gajar\Desktop\ctr\mapreducepar.png)
+
+
 
