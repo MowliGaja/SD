@@ -1,0 +1,73 @@
+---
+title: "Content_Based_Recommendation"
+author: "V Y Gajarajan"
+date: "01/09/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview
+**Main	idea:** Recommend	items	to	customer	x similar	to	previous	items rated	highly	by	x      
+**Example:**   
+
+  - Movie	recommendations	     
+    - Recommend	movies	with	same	actor(s),director,genre,...     
+      ![PSPK MOVIES.](C:\Users\gajar\Desktop\ctr\pspkmovies.png)
+  - Websites,blogs,news     	
+    ![PSPK Tweets.](C:\Users\gajar\Desktop\ctr\pspktwi.png)
+    
+### Plan of Action
+![Plan of Action.](C:\Users\gajar\Desktop\ctr\content_over.png)
+
+
+## Shallow of Concept
+
+###  item	profile	
+
+- For	each	item,	create	an	item	profile	
+- Profile	is	a	set	(vector)	of	features	
+    - **Movies:**	author,	-tle,	actor,	director,...
+    - **Text:**	Set	of	“important”	words	in	document	
+- How	to	pick	important	features?	
+  - Usual	heuristic	from	text	mining	is	TF-IDF(Term	frequency	*	Inverse	Doc	Frequency)
+    - Term ...	Feature
+    - Document...	Item	
+
+### User	profile and Prediction
+- **User	profile	possibilities:**
+  - Weighted	average	of	rated	item	profiles	
+  - **Variation:**	weight	by	difference	from	average	rating	for	item
+  - ...
+- **Prediction	heuristic:**
+  - Given	user	profile	x	and	item	profile	i,	estimate	
+  
+          
+              u(x,i) = cos(x,i) 
+          
+          
+    
+## Deep of Concept
+
+### Notes on TF-IDF
+
+![](C:\Users\gajar\Desktop\ctr\tfidf.png)
+
+
+### Pros: Content-based Approach
+
++:	No	need	for	data	on	other	users	
++:	Able	to	recommend	to	users	with unique	tastes
++:	Able	to	recommend	new	&	unpopular	items	
++:	Able	to	provide	explanations	
+
+### Cons: Content-based Approach
+–:	Finding	the	appropriate	features	is	hard	
+–:	Recommenda6ons	for	new	users
+–:	Overspecializa6on	
+
+  

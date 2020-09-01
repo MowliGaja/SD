@@ -1,0 +1,188 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={MapReduce},
+  pdfauthor={V Y Gajarajan},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{MapReduce}
+\author{V Y Gajarajan}
+\date{01/09/2020}
+
+\begin{document}
+\maketitle
+
+\hypertarget{overview}{%
+\subsection{Overview}\label{overview}}
+
+\begin{itemize}
+\tightlist
+\item
+  Sequentially read a lot of data
+\item
+  \textbf{Map:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Extract something you care about
+  \end{itemize}
+\item
+  \textbf{Group by key:}Sort and Shuffle
+\item
+  \textbf{Reduce:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Aggregate, summarize, filter or transform\\
+    -Write the result\\
+    \#\#\#\# Map Reduce Word Counting
+    \includegraphics{C:/Users/gajar/Desktop/ctr/wordcount.png}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{shallow-of-concept}{%
+\subsection{Shallow of Concept}\label{shallow-of-concept}}
+
+\hypertarget{morespecifically}{%
+\subsubsection{MoreSpecifically}\label{morespecifically}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Input:} a set of key-value pairs
+\item
+  Programmer specifies two methods:\\
+  -\textbf{Map(k, v)} → \textless k', v'\textgreater* -Takes a key-value
+  pair and outputs a set of key-value pairs -E.g., key is the filename,
+  value is a single line in the file -There is one Map call for every
+  (k,v) pair\\
+  -\_\_Reduce(k', \textless v'\textgreater{}\emph{)\_\_ → \textless k',
+  v''\textgreater{}} -\emph{All values v' with same key k' are reduced
+  together and processed in v' order} -There is one Reduce function call
+  per unique key k'
+\end{itemize}
+
+\hypertarget{mapreduce-the-map-step}{%
+\paragraph{MapReduce :The Map Step}\label{mapreduce-the-map-step}}
+
+\begin{figure}
+\centering
+\includegraphics{C:/Users/gajar/Desktop/ctr/mapstep.png}
+\caption{The Map Step.}
+\end{figure}
+
+\hypertarget{mapreduce-the-reduce-step}{%
+\paragraph{MapReduce :The Reduce Step}\label{mapreduce-the-reduce-step}}
+
+\begin{figure}
+\centering
+\includegraphics{C:/Users/gajar/Desktop/ctr/reducestep.png}
+\caption{The Reduce Step.}
+\end{figure}
+
+\hypertarget{deep-of-concept}{%
+\subsection{Deep of Concept}\label{deep-of-concept}}
+
+\hypertarget{word-count-using-mapreduce-pseudocode}{%
+\subsubsection{Word Count Using MapReduce
+Pseudocode}\label{word-count-using-mapreduce-pseudocode}}
+
+\begin{verbatim}
+map(key, value): 
+// key: document name; value: text of the document
+  for each word w in value:
+    emit(w, 1) 
+reduce(key, values):
+// key: a word; value: an iterator over counts
+  result = 0
+  for each count v in values:
+    result += v
+  emit(key, result)
+\end{verbatim}
+
+\hypertarget{map-reduceenvironment}{%
+\subsubsection{Map-Reduce:Environment}\label{map-reduceenvironment}}
+
+\textbf{Map-Reduce environment takes care of:} - Partitioning the input
+data\\
+- Scheduling the program's execution across a set of machines\\
+- Performing the group by key step\\
+- Handling machine failures - Managing required inter-machine
+communication
+
+\hypertarget{mapreduce-a-diagram}{%
+\paragraph{Mapreduce: A diagram}\label{mapreduce-a-diagram}}
+
+\begin{figure}
+\centering
+\includegraphics{C:/Users/gajar/Desktop/ctr/mapreducedia.png}
+\caption{Mapreduce: A diagram.}
+\end{figure}
+
+\hypertarget{mapreduce-in-parallel}{%
+\paragraph{Mapreduce: In Parallel}\label{mapreduce-in-parallel}}
+
+\begin{figure}
+\centering
+\includegraphics{C:/Users/gajar/Desktop/ctr/mapreducepar.png}
+\caption{Mapreduce: In Parallel.}
+\end{figure}
+
+\end{document}

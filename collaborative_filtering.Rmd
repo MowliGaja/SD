@@ -1,0 +1,47 @@
+---
+title: "collaborative_filtering"
+author: "V Y Gajarajan"
+date: "01/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Shallow of Concept
+### Item-item collaborative filtering
+
+- For	item	**i**,	find	other	similar	items
+- Estimate	rating	for	item	**i**	based	on	ratings	for	similar	items
+    
+    ![](C:\Users\gajar\Desktop\ctr\iicf.png)
+
+## Deep of Concept
+
+### Simple Problem Sloving
+
+![step1](C:\Users\gajar\Desktop\ctr\s1.png)
+
+![step2](C:\Users\gajar\Desktop\ctr\s2.png)
+
+![step3](C:\Users\gajar\Desktop\ctr\s3.png)
+
+![step4](C:\Users\gajar\Desktop\ctr\s4.png)
+
+![step5](C:\Users\gajar\Desktop\ctr\s5.png)
+
+
+### Pros/Cons of collaborative filtering
+- Works	for	any	kind	of	item	
+- Cold	Start:
+  -   Need	enough	users	in	the	system	to	find	a	match	
+- Sparsity:		
+  -   The	user/ratings	matrix	is	sparse
+  -   Hard	to	find	users	that	have	rated	the	same	items
+- First	rater:
+  -   Cannot	recommend	an	item	that	has	not	been	previously	rated	
+  -   New	items,	Esoteric	items
+- Popularity	bias:		
+  -   Cannot	recommend	items	to	someone	with unique	taste	
+  -   Tends	to	recommend	popular	items

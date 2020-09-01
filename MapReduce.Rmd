@@ -2,7 +2,9 @@
 title: "MapReduce"
 author: "V Y Gajarajan"
 date: "01/09/2020"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +18,8 @@ knitr::opts_chunk$set(echo = TRUE)
 - **Group	by	key:**Sort	and	Shuffle
 - **Reduce:**
     - Aggregate,	summarize,	filter	or	transform	
--Write	the	result	
+- Write	the	result
+
 #### Map Reduce Word Counting
 ![Map Reduce Word Counting.](C:\Users\gajar\Desktop\ctr\wordcount.png)
 
@@ -24,14 +27,18 @@ knitr::opts_chunk$set(echo = TRUE)
 ### MoreSpecifically
 
 - **Input:** a	set	of	key-value	pairs
-- Programmer	specifies	two	methods:	
-    -**Map(k, v)** → <k’, v’>* 
-      -Takes	a	key-value	pair	and	outputs	a	set	of	key-value	pairs
-        -E.g.,	key	is	the	filename,	value	is	a	single	line	in	the	file
-      -There	is	one	Map	call	for	every	(k,v)	pair	
-    -__Reduce(k’, <v’>*)__ → <k’, v’’>* 
-      -*All	values	v’	with	same	key	k’	are	reduced	together and	processed	in	v’	order*
-      -There	is	one	Reduce	function	call	per	unique	key	k’	
+- Programmer	specifies	two	methods:
+```
+    -Map(k, v) → <k’, v’>* 
+      - Takes	a	key-value	pair	and	outputs	a	set	of	key-value	pairs
+        - E.g.,	key	is	the	filename,	value	is	a	single	line	in	the	file
+      - There	is	one	Map	call	for	every	(k,v)	pair	
+      
+    - Reduce(k’, <v’>*)__ → <k’, v’’>* 
+      - All	values	v’	with	same	key	k’	are	reduced	together and	processed	in	v’	order
+      - There	is	one	Reduce	function	call	per	unique	key	k’
+```
+
       
 #### MapReduce :The Map Step
 ![The Map Step.](C:\Users\gajar\Desktop\ctr\mapstep.png)
@@ -42,11 +49,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Deep of Concept
 ### Word Count Using MapReduce Pseudocode
 ```
-**map(key, value): **
+map(key, value): 
 // key: document name; value: text of the document
   for each word w in value:
     emit(w, 1) 
-**reduce(key, values):**
+reduce(key, values):
 // key: a word; value: an iterator over counts
   result = 0
   for each count v in values:
