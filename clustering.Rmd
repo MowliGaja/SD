@@ -1,0 +1,17 @@
+---
+title: "Clustering"
+author: "V Y Gajarajan"
+date: "01/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Anology
+
+## Shallow
+
+##Deep
+
